@@ -5,7 +5,7 @@ const WordPressConfig = {
     
     // Direct API configuration
     direct: {
-        siteUrl: 'https://your-wordpress-site.com', // 👈 Update this!
+        siteUrl: 'https://365evergreen.com', // 👈 Update this!
         apiPath: '/wp-json/wp/v2'
     },
     
