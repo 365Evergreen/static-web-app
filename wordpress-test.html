@@ -1,0 +1,207 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>WordPress Integration Test - 365 Evergreen</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="styles/main.css">
+</head>
+<body class="bg-gray-50">
+    <div class="container mx-auto px-4 py-8">
+        <div class="max-w-4xl mx-auto">
+            <h1 class="text-3xl font-bold mb-8">WordPress Integration Test</h1>
+            
+            <!-- Configuration Panel -->
+            <div class="bg-white rounded-lg shadow-sm p-6 mb-8">
+                <h2 class="text-xl font-semibold mb-4">Configuration</h2>
+                <div class="grid md:grid-cols-2 gap-4">
+                    <div>
+                        <label class="block text-sm font-medium mb-2">WordPress Site URL:</label>
+                        <input type="url" id="wpUrl" class="w-full px-3 py-2 border border-gray-300 rounded-md" 
+                               placeholder="https://your-wordpress-site.com" value="https://your-wordpress-site.com">
+                    </div>
+                    <div>
+                        <label class="block text-sm font-medium mb-2">Integration Method:</label>
+                        <select id="method" class="w-full px-3 py-2 border border-gray-300 rounded-md">
+                            <option value="direct">Direct API</option>
+                            <option value="proxy">Azure Function Proxy</option>
+                        </select>
+                    </div>
+                </div>
+                <div class="mt-4">
+                    <button onclick="testConnection()" class="btn btn-primary mr-4">Test Connection</button>
+                    <button onclick="testPosts()" class="btn btn-secondary mr-4">Test Posts</button>
+                    <button onclick="clearResults()" class="btn">Clear Results</button>
+                </div>
+            </div>
+
+            <!-- Connection Status -->
+            <div id="status" class="mb-8"></div>
+
+            <!-- Test Results -->
+            <div id="results" class="space-y-6"></div>
+        </div>
+    </div>
+
+    <script src="js/wordpress-integration.js"></script>
+    <script>
+        let wp = null;
+
+        async function testConnection() {
+            const url = document.getElementById('wpUrl').value;
+            const method = document.getElementById('method').value;
+            
+            if (!url) {
+                showStatus('error', 'Please enter a WordPress site URL');
+                return;
+            }
+
+            showStatus('loading', 'Testing connection...');
+            
+            try {
+                // Test basic WordPress API endpoint
+                const testUrl = method === 'proxy' 
+                    ? '/api/wordpress/' 
+                    : `${url}/wp-json/wp/v2/`;
+                
+                console.log(`Testing: ${testUrl}`);
+                
+                const response = await fetch(testUrl);
+                
+                if (response.ok) {
+                    showStatus('success', `✅ Connection successful! (Status: ${response.status})`);
+                    
+                    // Initialize WordPress API
+                    wp = new WordPressAPI(url);
+                    
+                    // Try to get site info
+                    try {
+                        const siteInfo = await wp.getSiteInfo();
+                        showStatus('success', `✅ Connected to: ${siteInfo.name || 'WordPress Site'}`);
+                    } catch (e) {
+                        showStatus('warning', '⚠️ Connected but could not fetch site info');
+                    }
+                } else {
+                    showStatus('error', `❌ Connection failed (Status: ${response.status})`);
+                }
+            } catch (error) {
+                console.error('Connection test failed:', error);
+                showStatus('error', `❌ Connection failed: ${error.message}`);
+                showCORSHelp();
+            }
+        }
+
+        async function testPosts() {
+            if (!wp) {
+                showStatus('error', 'Please test connection first');
+                return;
+            }
+
+            showStatus('loading', 'Fetching posts...');
+            
+            try {
+                const posts = await wp.getPosts({ per_page: 3 });
+                
+                if (posts && posts.length > 0) {
+                    showStatus('success', `✅ Retrieved ${posts.length} posts`);
+                    displayPosts(posts);
+                } else {
+                    showStatus('warning', '⚠️ No posts found');
+                }
+            } catch (error) {
+                console.error('Posts test failed:', error);
+                showStatus('error', `❌ Failed to fetch posts: ${error.message}`);
+            }
+        }
+
+        function showStatus(type, message) {
+            const statusDiv = document.getElementById('status');
+            const colors = {
+                loading: 'bg-blue-100 border-blue-400 text-blue-700',
+                success: 'bg-green-100 border-green-400 text-green-700',
+                warning: 'bg-yellow-100 border-yellow-400 text-yellow-700',
+                error: 'bg-red-100 border-red-400 text-red-700'
+            };
+            
+            statusDiv.innerHTML = `
+                <div class="border px-4 py-3 rounded ${colors[type]}">
+                    ${type === 'loading' ? '<div class="loading-spinner inline-block mr-2"></div>' : ''}
+                    ${message}
+                </div>
+            `;
+        }
+
+        function displayPosts(posts) {
+            const resultsDiv = document.getElementById('results');
+            
+            const postsHtml = posts.map(post => `
+                <div class="bg-white rounded-lg shadow-sm p-6">
+                    <h3 class="text-lg font-semibold mb-2">${post.title}</h3>
+                    <p class="text-gray-600 mb-3">${wp.stripHtml(post.excerpt).substring(0, 200)}...</p>
+                    <div class="flex items-center justify-between text-sm text-gray-500">
+                        <span>${post.formattedDate}</span>
+                        <span>${post.readingTime}</span>
+                    </div>
+                    ${post.featuredImage ? `
+                        <img src="${post.featuredImage.url}" alt="${post.featuredImage.alt}" 
+                             class="w-full h-48 object-cover rounded-md mt-4">
+                    ` : ''}
+                    <div class="mt-4">
+                        <a href="${post.link}" target="_blank" rel="noopener" class="text-blue-600 hover:underline">
+                            Read on WordPress →
+                        </a>
+                    </div>
+                </div>
+            `).join('');
+            
+            resultsDiv.innerHTML = `
+                <div class="bg-white rounded-lg shadow-sm p-6">
+                    <h2 class="text-xl font-semibold mb-4">Test Results</h2>
+                    <div class="space-y-4">
+                        ${postsHtml}
+                    </div>
+                </div>
+            `;
+        }
+
+        function showCORSHelp() {
+            const resultsDiv = document.getElementById('results');
+            resultsDiv.innerHTML = `
+                <div class="bg-yellow-50 border border-yellow-200 rounded-lg p-6">
+                    <h3 class="text-lg font-semibold text-yellow-800 mb-3">CORS Issue Detected</h3>
+                    <p class="text-yellow-700 mb-4">
+                        Your WordPress site is blocking cross-origin requests. Here are your options:
+                    </p>
+                    <ul class="list-disc list-inside text-yellow-700 space-y-2 mb-4">
+                        <li>Install the "WP CORS" plugin in WordPress</li>
+                        <li>Add CORS headers to your WordPress functions.php</li>
+                        <li>Use the Azure Function proxy method</li>
+                        <li>Contact your hosting provider</li>
+                    </ul>
+                    <a href="WORDPRESS-SETUP.md" target="_blank" class="btn btn-primary">
+                        View Setup Guide
+                    </a>
+                </div>
+            `;
+        }
+
+        function clearResults() {
+            document.getElementById('results').innerHTML = '';
+            document.getElementById('status').innerHTML = '';
+        }
+
+        // Auto-test on page load if URL is provided
+        document.addEventListener('DOMContentLoaded', function() {
+            const urlParams = new URLSearchParams(window.location.search);
+            const testUrl = urlParams.get('url');
+            
+            if (testUrl) {
+                document.getElementById('wpUrl').value = testUrl;
+                setTimeout(() => testConnection(), 1000);
+            }
+        });
+    </script>
+</body>
+</html>

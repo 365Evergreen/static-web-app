@@ -59,47 +59,11 @@
 
     <!-- Featured Article -->
     <section class="py-16">
-        <div class="container">
-            <div class="mb-12">
-                <h2 class="text-3xl font-bold mb-8">Featured Article</h2>
-                <div class="bg-white rounded-lg shadow-lg overflow-hidden">
-                    <div class="md:flex">
-                        <div class="md:w-1/2 bg-gradient-to-br from-blue-500 to-purple-600 p-8 text-white">
-                            <span class="bg-white/20 text-white px-3 py-1 rounded-full text-sm">Featured</span>
-                            <h3 class="text-2xl font-bold mt-4 mb-4">
-                                10 Ways Power Automate Can Transform Your Business Processes in 2025
-                            </h3>
-                            <p class="mb-6">
-                                Discover how Australian businesses are using Power Automate to eliminate manual tasks, improve efficiency, and drive innovation across their organizations.
-                            </p>
-                            <a href="#" class="inline-flex items-center text-white hover:underline">
-                                Read More
-                                <svg class="w-4 h-4 ml-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"></path>
-                                </svg>
-                            </a>
-                        </div>
-                        <div class="md:w-1/2 p-8">
-                            <div class="mb-4">
-                                <span class="text-gray-500 text-sm">January 15, 2025 • 5 min read</span>
-                            </div>
-                            <div class="space-y-4 text-gray-600">
-                                <p>
-                                    <strong>Business process automation</strong> is no longer a luxury—it's a necessity for staying competitive. Power Automate has evolved significantly, offering new capabilities that make it easier than ever to automate complex workflows.
-                                </p>
-                                <p>
-                                    In this comprehensive guide, we'll explore the top 10 ways Australian businesses are leveraging Power Automate to streamline operations, reduce costs, and improve customer satisfaction.
-                                </p>
-                                <ul class="list-disc list-inside space-y-2">
-                                    <li>Automated approval workflows</li>
-                                    <li>Data synchronization between systems</li>
-                                    <li>Customer communication automation</li>
-                                    <li>Document management processes</li>
-                                </ul>
-                            </div>
-                        </div>
-                    </div>
-                </div>
+        <div class="container" id="featured-article">
+            <!-- Featured article will be loaded dynamically from WordPress -->
+            <div class="text-center py-8">
+                <div class="loading-spinner mx-auto mb-4"></div>
+                <p class="text-gray-600">Loading featured article...</p>
             </div>
         </div>
     </section>
@@ -109,92 +73,17 @@
         <div class="container">
             <h2 class="text-3xl font-bold mb-8">Recent Articles</h2>
             
-            <div class="grid md:grid-cols-3 gap-8">
-                <!-- Article 1 -->
-                <article class="bg-white rounded-lg shadow-sm overflow-hidden">
-                    <div class="bg-blue-100 h-48 flex items-center justify-center">
-                        <div class="text-center">
-                            <div class="w-16 h-16 bg-blue-600 rounded-lg mx-auto mb-4 flex items-center justify-center">
-                                <svg class="w-8 h-8 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"></path>
-                                </svg>
-                            </div>
-                            <span class="text-blue-600 font-semibold">Microsoft 365</span>
-                        </div>
-                    </div>
-                    <div class="p-6">
-                        <span class="text-blue-600 text-sm font-medium">Microsoft 365</span>
-                        <h3 class="text-xl font-semibold mt-2 mb-3">
-                            Microsoft Teams Premium: Is It Worth the Investment?
-                        </h3>
-                        <p class="text-gray-600 mb-4">
-                            A detailed analysis of Teams Premium features and how they can benefit Australian businesses of different sizes.
-                        </p>
-                        <div class="flex items-center justify-between">
-                            <span class="text-gray-500 text-sm">Jan 10, 2025</span>
-                            <a href="#" class="text-blue-600 hover:underline">Read More</a>
-                        </div>
-                    </div>
-                </article>
-
-                <!-- Article 2 -->
-                <article class="bg-white rounded-lg shadow-sm overflow-hidden">
-                    <div class="bg-purple-100 h-48 flex items-center justify-center">
-                        <div class="text-center">
-                            <div class="w-16 h-16 bg-purple-600 rounded-lg mx-auto mb-4 flex items-center justify-center">
-                                <svg class="w-8 h-8 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 10V3L4 14h7v7l9-11h-7z"></path>
-                                </svg>
-                            </div>
-                            <span class="text-purple-600 font-semibold">Power Platform</span>
-                        </div>
-                    </div>
-                    <div class="p-6">
-                        <span class="text-purple-600 text-sm font-medium">Power Platform</span>
-                        <h3 class="text-xl font-semibold mt-2 mb-3">
-                            Building Your First Power App: A Step-by-Step Guide
-                        </h3>
-                        <p class="text-gray-600 mb-4">
-                            Learn how to create a simple but powerful business application using Power Apps, from planning to deployment.
-                        </p>
-                        <div class="flex items-center justify-between">
-                            <span class="text-gray-500 text-sm">Jan 8, 2025</span>
-                            <a href="#" class="text-blue-600 hover:underline">Read More</a>
-                        </div>
-                    </div>
-                </article>
-
-                <!-- Article 3 -->
-                <article class="bg-white rounded-lg shadow-sm overflow-hidden">
-                    <div class="bg-green-100 h-48 flex items-center justify-center">
-                        <div class="text-center">
-                            <div class="w-16 h-16 bg-green-600 rounded-lg mx-auto mb-4 flex items-center justify-center">
-                                <svg class="w-8 h-8 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 19v-6a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2h2a2 2 0 002-2zm0 0V9a2 2 0 012-2h2a2 2 0 012 2v10m-6 0a2 2 0 002 2h2a2 2 0 002-2m0 0V5a2 2 0 012-2h2a2 2 0 012 2v14a2 2 0 01-2 2h-2a2 2 0 01-2-2z"></path>
-                                </svg>
-                            </div>
-                            <span class="text-green-600 font-semibold">Business Strategy</span>
-                        </div>
-                    </div>
-                    <div class="p-6">
-                        <span class="text-green-600 text-sm font-medium">Business Strategy</span>
-                        <h3 class="text-xl font-semibold mt-2 mb-3">
-                            Digital Transformation Roadmap for Small Businesses
-                        </h3>
-                        <p class="text-gray-600 mb-4">
-                            A practical framework for small Australian businesses to plan and execute their digital transformation journey.
-                        </p>
-                        <div class="flex items-center justify-between">
-                            <span class="text-gray-500 text-sm">Jan 5, 2025</span>
-                            <a href="#" class="text-blue-600 hover:underline">Read More</a>
-                        </div>
-                    </div>
-                </article>
+            <div class="grid md:grid-cols-3 gap-8 posts-grid" id="recent-articles">
+                <!-- Recent articles will be loaded dynamically from WordPress -->
+                <div class="col-span-full text-center py-8">
+                    <div class="loading-spinner mx-auto mb-4"></div>
+                    <p class="text-gray-600">Loading recent articles...</p>
+                </div>
             </div>
 
             <!-- Load More Button -->
             <div class="text-center mt-12">
-                <button class="btn btn-primary">
+                <button id="load-more-btn" class="btn btn-primary">
                     Load More Articles
                 </button>
             </div>
@@ -253,5 +142,75 @@
 
     <!-- Main JavaScript -->
     <script src="js/main.js"></script>
+    <!-- WordPress Integration -->
+    <script src="js/wordpress-integration.js"></script>
+    <script src="js/wordpress-enhanced.js"></script>
+    
+    <script>
+        // WordPress Integration Configuration
+        const wpConfig = {
+            method: 'direct', // Change to 'proxy' if you have CORS issues
+            direct: {
+                siteUrl: 'https://your-wordpress-site.com', // 👈 Update this with your WordPress URL!
+                apiPath: '/wp-json/wp/v2'
+            },
+            proxy: {
+                baseUrl: '/api/wordpress',
+                addCorsHeaders: true
+            },
+            cache: {
+                enabled: true,
+                duration: 5 * 60 * 1000 // 5 minutes
+            },
+            fallback: {
+                showStaticContent: true,
+                errorMessage: 'Blog posts are temporarily unavailable. Please visit our main blog site.'
+            }
+        };
+
+        // Initialize WordPress Blog Integration
+        document.addEventListener('DOMContentLoaded', async function() {
+            console.log('🔧 Starting WordPress blog integration...');
+            
+            try {
+                const blog = new EnhancedBlogIntegration(wpConfig);
+                await blog.init();
+                
+                // Add refresh button functionality
+                window.refreshBlog = async function() {
+                    blog.wp.clearCache();
+                    await blog.init();
+                };
+                
+            } catch (error) {
+                console.error('❌ Blog integration failed:', error);
+                
+                // Show user-friendly error message
+                const errorDiv = document.createElement('div');
+                errorDiv.className = 'fixed top-4 right-4 bg-red-100 border border-red-400 text-red-700 px-4 py-3 rounded shadow-lg z-50';
+                errorDiv.innerHTML = `
+                    <div class="flex items-center">
+                        <svg class="w-5 h-5 mr-2" fill="currentColor" viewBox="0 0 20 20">
+                            <path fill-rule="evenodd" d="M18 10a8 8 0 11-16 0 8 8 0 0116 0zm-7 4a1 1 0 11-2 0 1 1 0 012 0zm-1-9a1 1 0 00-1 1v4a1 1 0 102 0V6a1 1 0 00-1-1z" clip-rule="evenodd"></path>
+                        </svg>
+                        <span>Blog temporarily unavailable</span>
+                        <button onclick="this.parentElement.parentElement.remove()" class="ml-4 text-red-900 hover:text-red-700">
+                            <svg class="w-4 h-4" fill="currentColor" viewBox="0 0 20 20">
+                                <path fill-rule="evenodd" d="M4.293 4.293a1 1 0 011.414 0L10 8.586l4.293-4.293a1 1 0 111.414 1.414L11.414 10l4.293 4.293a1 1 0 01-1.414 1.414L10 11.414l-4.293 4.293a1 1 0 01-1.414-1.414L8.586 10 4.293 5.707a1 1 0 010-1.414z" clip-rule="evenodd"></path>
+                            </svg>
+                        </button>
+                    </div>
+                `;
+                document.body.appendChild(errorDiv);
+                
+                // Auto-remove after 10 seconds
+                setTimeout(() => {
+                    if (errorDiv.parentElement) {
+                        errorDiv.remove();
+                    }
+                }, 10000);
+            }
+        });
+    </script>
 </body>
 </html>
