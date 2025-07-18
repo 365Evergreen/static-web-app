@@ -1,20 +1,97 @@
-# Introduction 
-TODO: Give a short introduction of your project. Let this section explain the objectives or the motivation behind this project. 
+# 365 Evergreen - Azure Web Application
 
-# Getting Started
-TODO: Guide users through getting your code up and running on their own system. In this section you can talk about:
-1.	Installation process
-2.	Software dependencies
-3.	Latest releases
-4.	API references
+A modern, responsive website for 365 Evergreen, a Microsoft 365 & Power Platform consultancy based in Australia. This application showcases the company's services and expertise in helping businesses unlock productivity through Microsoft technologies.
 
-# Build and Test
-TODO: Describe and show how to build your code and run the tests. 
+## Features
 
-# Contribute
-TODO: Explain how other users and developers can contribute to make your code better. 
+- **Modern Design**: Clean, professional interface built with Tailwind CSS
+- **Responsive Layout**: Mobile-first design that works on all devices
+- **Azure Static Web Apps**: Deployed using Azure Static Web Apps for optimal performance
+- **Application Insights**: Integrated monitoring and analytics
+- **Secure**: Uses Azure Key Vault for secure configuration management
 
-If you want to learn more about creating good readme files then refer the following [guidelines](https://docs.microsoft.com/en-us/azure/devops/repos/git/create-a-readme?view=azure-devops). You can also seek inspiration from the below readme files:
-- [ASP.NET Core](https://github.com/aspnet/Home)
-- [Visual Studio Code](https://github.com/Microsoft/vscode)
-- [Chakra Core](https://github.com/Microsoft/ChakraCore)
+## Architecture
+
+This application uses the following Azure services:
+
+- **Azure Static Web Apps**: Hosting for the static website
+- **Application Insights**: Application performance monitoring
+- **Log Analytics Workspace**: Centralized logging
+- **Azure Key Vault**: Secure storage for configuration secrets
+
+## Getting Started
+
+### Prerequisites
+
+- Azure CLI (`az`)
+- Azure Developer CLI (`azd`)
+- An Azure subscription
+
+### Installation
+
+1. Clone this repository
+2. Navigate to the project directory
+3. Run `azd init` to initialize the project
+4. Run `azd up` to provision resources and deploy
+
+### Development
+
+The website is built using:
+- HTML5 with semantic markup
+- Tailwind CSS for styling
+- Vanilla JavaScript for interactivity
+- Modern responsive design principles
+
+### Deployment
+
+This project uses Azure Developer CLI (azd) for deployment:
+
+```bash
+# Initialize the project
+azd init
+
+# Deploy to Azure
+azd up
+
+# View application logs
+azd logs
+
+# Clean up resources
+azd down
+```
+
+## Project Structure
+
+```
+├── index.html          # Main website file
+├── azure.yaml          # Azure Developer CLI configuration
+├── infra/              # Infrastructure as Code
+│   ├── main.bicep      # Main Bicep template
+│   └── main.parameters.json # Parameters file
+└── README.md           # This file
+```
+
+## Services Offered
+
+365 Evergreen specializes in:
+
+- Microsoft 365 implementation and optimization
+- Power Platform development and automation
+- Digital transformation consulting
+- Training and support services
+- Custom business solutions
+
+## Contributing
+
+1. Fork the repository
+2. Create a feature branch
+3. Make your changes
+4. Submit a pull request
+
+## License
+
+This project is licensed under the MIT License.
+
+## Contact
+
+For more information about 365 Evergreen services, visit our website or contact us directly.
