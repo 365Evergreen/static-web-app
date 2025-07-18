@@ -1,0 +1,262 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Blog - 365 Evergreen</title>
+    <meta name="description" content="Latest insights, tips, and news about Microsoft 365 and Power Platform from the experts at 365 Evergreen.">
+    
+    <!-- Import Google Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    
+    <!-- Tailwind CSS CDN -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    
+    <!-- Shared CSS -->
+    <link rel="stylesheet" href="styles/shared.css">
+</head>
+<body>
+    <!-- Header -->
+    <header class="header">
+        <div class="container">
+            <div class="flex items-center justify-between h-16">
+                <div class="flex items-center space-x-3">
+                    <div class="w-10 h-10 bg-blue-600 rounded-lg flex items-center justify-center text-white font-bold">
+                        365
+                    </div>
+                    <span class="text-xl font-bold">365 Evergreen</span>
+                </div>
+
+                <nav class="hidden md:flex items-center space-x-8">
+                    <a href="index.html" class="nav-link">Home</a>
+                    <a href="services.html" class="nav-link">Services</a>
+                    <a href="about.html" class="nav-link">About</a>
+                    <a href="blog.html" class="nav-link text-blue-600">Blog</a>
+                    <a href="contact.html" class="nav-link">Contact</a>
+                    <a href="contact.html" class="btn btn-primary">Get Started</a>
+                </nav>
+
+                <button class="md:hidden p-2" onclick="toggleMobileMenu()">
+                    <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16"></path>
+                    </svg>
+                </button>
+            </div>
+        </div>
+    </header>
+
+    <!-- Blog Hero Section -->
+    <section class="pt-20 pb-16 bg-gradient-to-r from-blue-600 to-purple-600">
+        <div class="container">
+            <div class="text-center text-white">
+                <h1 class="text-4xl md:text-5xl font-bold mb-6">Our Blog</h1>
+                <p class="text-xl max-w-3xl mx-auto">
+                    Insights, tips, and latest news about Microsoft 365, Power Platform, and digital transformation.
+                </p>
+            </div>
+        </div>
+    </section>
+
+    <!-- Featured Article -->
+    <section class="py-16">
+        <div class="container">
+            <div class="mb-12">
+                <h2 class="text-3xl font-bold mb-8">Featured Article</h2>
+                <div class="bg-white rounded-lg shadow-lg overflow-hidden">
+                    <div class="md:flex">
+                        <div class="md:w-1/2 bg-gradient-to-br from-blue-500 to-purple-600 p-8 text-white">
+                            <span class="bg-white/20 text-white px-3 py-1 rounded-full text-sm">Featured</span>
+                            <h3 class="text-2xl font-bold mt-4 mb-4">
+                                10 Ways Power Automate Can Transform Your Business Processes in 2025
+                            </h3>
+                            <p class="mb-6">
+                                Discover how Australian businesses are using Power Automate to eliminate manual tasks, improve efficiency, and drive innovation across their organizations.
+                            </p>
+                            <a href="#" class="inline-flex items-center text-white hover:underline">
+                                Read More
+                                <svg class="w-4 h-4 ml-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"></path>
+                                </svg>
+                            </a>
+                        </div>
+                        <div class="md:w-1/2 p-8">
+                            <div class="mb-4">
+                                <span class="text-gray-500 text-sm">January 15, 2025 • 5 min read</span>
+                            </div>
+                            <div class="space-y-4 text-gray-600">
+                                <p>
+                                    <strong>Business process automation</strong> is no longer a luxury—it's a necessity for staying competitive. Power Automate has evolved significantly, offering new capabilities that make it easier than ever to automate complex workflows.
+                                </p>
+                                <p>
+                                    In this comprehensive guide, we'll explore the top 10 ways Australian businesses are leveraging Power Automate to streamline operations, reduce costs, and improve customer satisfaction.
+                                </p>
+                                <ul class="list-disc list-inside space-y-2">
+                                    <li>Automated approval workflows</li>
+                                    <li>Data synchronization between systems</li>
+                                    <li>Customer communication automation</li>
+                                    <li>Document management processes</li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Recent Articles -->
+    <section class="pb-16 bg-gray-50">
+        <div class="container">
+            <h2 class="text-3xl font-bold mb-8">Recent Articles</h2>
+            
+            <div class="grid md:grid-cols-3 gap-8">
+                <!-- Article 1 -->
+                <article class="bg-white rounded-lg shadow-sm overflow-hidden">
+                    <div class="bg-blue-100 h-48 flex items-center justify-center">
+                        <div class="text-center">
+                            <div class="w-16 h-16 bg-blue-600 rounded-lg mx-auto mb-4 flex items-center justify-center">
+                                <svg class="w-8 h-8 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"></path>
+                                </svg>
+                            </div>
+                            <span class="text-blue-600 font-semibold">Microsoft 365</span>
+                        </div>
+                    </div>
+                    <div class="p-6">
+                        <span class="text-blue-600 text-sm font-medium">Microsoft 365</span>
+                        <h3 class="text-xl font-semibold mt-2 mb-3">
+                            Microsoft Teams Premium: Is It Worth the Investment?
+                        </h3>
+                        <p class="text-gray-600 mb-4">
+                            A detailed analysis of Teams Premium features and how they can benefit Australian businesses of different sizes.
+                        </p>
+                        <div class="flex items-center justify-between">
+                            <span class="text-gray-500 text-sm">Jan 10, 2025</span>
+                            <a href="#" class="text-blue-600 hover:underline">Read More</a>
+                        </div>
+                    </div>
+                </article>
+
+                <!-- Article 2 -->
+                <article class="bg-white rounded-lg shadow-sm overflow-hidden">
+                    <div class="bg-purple-100 h-48 flex items-center justify-center">
+                        <div class="text-center">
+                            <div class="w-16 h-16 bg-purple-600 rounded-lg mx-auto mb-4 flex items-center justify-center">
+                                <svg class="w-8 h-8 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 10V3L4 14h7v7l9-11h-7z"></path>
+                                </svg>
+                            </div>
+                            <span class="text-purple-600 font-semibold">Power Platform</span>
+                        </div>
+                    </div>
+                    <div class="p-6">
+                        <span class="text-purple-600 text-sm font-medium">Power Platform</span>
+                        <h3 class="text-xl font-semibold mt-2 mb-3">
+                            Building Your First Power App: A Step-by-Step Guide
+                        </h3>
+                        <p class="text-gray-600 mb-4">
+                            Learn how to create a simple but powerful business application using Power Apps, from planning to deployment.
+                        </p>
+                        <div class="flex items-center justify-between">
+                            <span class="text-gray-500 text-sm">Jan 8, 2025</span>
+                            <a href="#" class="text-blue-600 hover:underline">Read More</a>
+                        </div>
+                    </div>
+                </article>
+
+                <!-- Article 3 -->
+                <article class="bg-white rounded-lg shadow-sm overflow-hidden">
+                    <div class="bg-green-100 h-48 flex items-center justify-center">
+                        <div class="text-center">
+                            <div class="w-16 h-16 bg-green-600 rounded-lg mx-auto mb-4 flex items-center justify-center">
+                                <svg class="w-8 h-8 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 19v-6a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2h2a2 2 0 002-2zm0 0V9a2 2 0 012-2h2a2 2 0 012 2v10m-6 0a2 2 0 002 2h2a2 2 0 002-2m0 0V5a2 2 0 012-2h2a2 2 0 012 2v14a2 2 0 01-2 2h-2a2 2 0 01-2-2z"></path>
+                                </svg>
+                            </div>
+                            <span class="text-green-600 font-semibold">Business Strategy</span>
+                        </div>
+                    </div>
+                    <div class="p-6">
+                        <span class="text-green-600 text-sm font-medium">Business Strategy</span>
+                        <h3 class="text-xl font-semibold mt-2 mb-3">
+                            Digital Transformation Roadmap for Small Businesses
+                        </h3>
+                        <p class="text-gray-600 mb-4">
+                            A practical framework for small Australian businesses to plan and execute their digital transformation journey.
+                        </p>
+                        <div class="flex items-center justify-between">
+                            <span class="text-gray-500 text-sm">Jan 5, 2025</span>
+                            <a href="#" class="text-blue-600 hover:underline">Read More</a>
+                        </div>
+                    </div>
+                </article>
+            </div>
+
+            <!-- Load More Button -->
+            <div class="text-center mt-12">
+                <button class="btn btn-primary">
+                    Load More Articles
+                </button>
+            </div>
+        </div>
+    </section>
+
+    <!-- Newsletter Signup -->
+    <section class="py-16">
+        <div class="container">
+            <div class="max-w-2xl mx-auto text-center">
+                <h2 class="text-3xl font-bold mb-4">Stay Updated</h2>
+                <p class="text-gray-600 mb-8">
+                    Subscribe to our newsletter for the latest insights, tips, and updates about Microsoft 365 and Power Platform.
+                </p>
+                <form class="flex flex-col sm:flex-row gap-4 max-w-md mx-auto">
+                    <input type="email" placeholder="Enter your email" 
+                           class="flex-1 px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-600 focus:border-transparent">
+                    <button type="submit" class="btn btn-primary whitespace-nowrap">
+                        Subscribe
+                    </button>
+                </form>
+                <p class="text-gray-500 text-sm mt-4">
+                    No spam, unsubscribe at any time.
+                </p>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="bg-gray-900 text-white py-12">
+        <div class="container">
+            <div class="text-center">
+                <div class="flex items-center justify-center space-x-3 mb-4">
+                    <div class="w-10 h-10 bg-blue-600 rounded-lg flex items-center justify-center text-white font-bold">
+                        365
+                    </div>
+                    <span class="text-xl font-bold">365 Evergreen</span>
+                </div>
+                <p class="text-gray-400 mb-6">Australia's trusted Microsoft 365 and Power Platform consultancy</p>
+                
+                <div class="flex justify-center space-x-8 mb-6">
+                    <a href="index.html" class="text-gray-400 hover:text-white">Home</a>
+                    <a href="services.html" class="text-gray-400 hover:text-white">Services</a>
+                    <a href="about.html" class="text-gray-400 hover:text-white">About</a>
+                    <a href="contact.html" class="text-gray-400 hover:text-white">Contact</a>
+                </div>
+                
+                <div class="pt-6 border-t border-gray-800">
+                    <p class="text-sm text-gray-500">
+                        © 2025 365 Evergreen. All rights reserved.
+                    </p>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        // Mobile menu toggle
+        function toggleMobileMenu() {
+            const menu = document.querySelector('.mobile-menu');
+            menu.classList.toggle('active');
+        }
+    </script>
+</body>
+</html>

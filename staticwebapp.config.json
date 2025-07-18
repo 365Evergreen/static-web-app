@@ -3,10 +3,27 @@
     {
       "route": "/api/*",
       "allowedRoles": ["anonymous"]
+    },
+    {
+      "route": "/about",
+      "rewrite": "/about.html"
+    },
+    {
+      "route": "/blog",
+      "rewrite": "/blog.html"
+    },
+    {
+      "route": "/contact",
+      "rewrite": "/contact.html"
+    },
+    {
+      "route": "/services",
+      "rewrite": "/services.html"
     }
   ],
   "navigationFallback": {
-    "rewrite": "/index.html"
+    "rewrite": "/index.html",
+    "exclude": ["/api/*", "/*.{css,scss,sass,js,ts,png,gif,ico,jpg,jpeg,svg,woff,woff2,ttf,eot}"]
   },
   "mimeTypes": {
     ".json": "text/json"
