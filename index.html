@@ -12,256 +12,8 @@
     <!-- Tailwind CSS CDN -->
     <script src="https://cdn.tailwindcss.com"></script>
     
-    <!-- Custom CSS -->
-    <style>
-        :root {
-            --background: #ffffff;
-            --foreground: #030213;
-            --card: #ffffff;
-            --card-foreground: #030213;
-            --primary: #2563eb;
-            --primary-foreground: #ffffff;
-            --secondary: #f3f4f6;
-            --secondary-foreground: #030213;
-            --muted: #ececf0;
-            --muted-foreground: #717182;
-            --accent: #e9ebef;
-            --accent-foreground: #030213;
-            --border: rgba(0, 0, 0, 0.1);
-            --radius: 0.625rem;
-        }
-
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-        }
-
-        body {
-            font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
-            background-color: var(--background);
-            color: var(--foreground);
-            line-height: 1.6;
-        }
-
-        .hero-bg {
-            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-            background-size: 400% 400%;
-            animation: gradientShift 15s ease infinite;
-        }
-
-        @keyframes gradientShift {
-            0% { background-position: 0% 50%; }
-            50% { background-position: 100% 50%; }
-            100% { background-position: 0% 50%; }
-        }
-
-        @keyframes pulse {
-            0%, 100% { opacity: 1; }
-            50% { opacity: 0.5; }
-        }
-
-        @keyframes bounce {
-            0%, 100% { transform: translateY(0); }
-            50% { transform: translateY(-10px); }
-        }
-
-        .pulse { animation: pulse 2s infinite; }
-        .bounce { animation: bounce 2s infinite; }
-
-        .card {
-            background: var(--card);
-            border: 1px solid var(--border);
-            border-radius: var(--radius);
-            transition: all 0.3s ease;
-        }
-
-        .card:hover {
-            transform: translateY(-4px);
-            box-shadow: 0 10px 25px rgba(0, 0, 0, 0.1);
-        }
-
-        .btn {
-            padding: 0.75rem 1.5rem;
-            border: none;
-            border-radius: var(--radius);
-            font-weight: 500;
-            cursor: pointer;
-            transition: all 0.3s ease;
-            text-decoration: none;
-            display: inline-flex;
-            align-items: center;
-            gap: 0.5rem;
-        }
-
-        .btn-primary {
-            background-color: var(--primary);
-            color: var(--primary-foreground);
-        }
-
-        .btn-primary:hover {
-            background-color: #1d4ed8;
-            transform: translateY(-2px);
-            box-shadow: 0 5px 15px rgba(37, 99, 235, 0.3);
-        }
-
-        .btn-outline {
-            background-color: rgba(255, 255, 255, 0.1);
-            color: white;
-            border: 2px solid rgba(255, 255, 255, 0.3);
-            backdrop-filter: blur(8px);
-        }
-
-        .btn-outline:hover {
-            background-color: rgba(255, 255, 255, 0.2);
-            border-color: rgba(255, 255, 255, 0.5);
-        }
-
-        .header {
-            position: fixed;
-            top: 0;
-            left: 0;
-            right: 0;
-            z-index: 50;
-            background-color: rgba(255, 255, 255, 0.8);
-            backdrop-filter: blur(10px);
-            border-bottom: 1px solid var(--border);
-            transition: all 0.3s ease;
-        }
-
-        .nav-link {
-            color: var(--foreground);
-            text-decoration: none;
-            padding: 0.5rem 1rem;
-            transition: color 0.3s ease;
-        }
-
-        .nav-link:hover {
-            color: var(--primary);
-        }
-
-        .footer {
-            background-color: var(--card);
-            border-top: 1px solid var(--border);
-            padding: 3rem 0;
-            margin-top: 4rem;
-        }
-
-        .service-badge {
-            padding: 0.25rem 0.75rem;
-            border-radius: 9999px;
-            font-size: 0.875rem;
-            font-weight: 500;
-        }
-
-        .service-badge.microsoft {
-            background-color: #dbeafe;
-            color: #2563eb;
-        }
-
-        .service-badge.power-platform {
-            background-color: #f3e8ff;
-            color: #7c3aed;
-        }
-
-        .service-badge.consulting {
-            background-color: #dcfce7;
-            color: #16a34a;
-        }
-
-        .scroll-indicator {
-            position: absolute;
-            bottom: 2rem;
-            left: 50%;
-            transform: translateX(-50%);
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            color: rgba(255, 255, 255, 0.7);
-        }
-
-        .scroll-indicator .mouse {
-            width: 24px;
-            height: 40px;
-            border: 2px solid rgba(255, 255, 255, 0.3);
-            border-radius: 20px;
-            display: flex;
-            justify-content: center;
-            margin-top: 0.5rem;
-        }
-
-        .scroll-indicator .wheel {
-            width: 4px;
-            height: 12px;
-            background-color: rgba(255, 255, 255, 0.6);
-            border-radius: 2px;
-            margin-top: 8px;
-            animation: bounce 2s infinite;
-        }
-
-        @media (max-width: 768px) {
-            .hero-title {
-                font-size: 2.5rem !important;
-            }
-            
-            .mobile-menu {
-                display: none;
-            }
-            
-            .mobile-menu.active {
-                display: block;
-            }
-        }
-
-        .section {
-            padding: 5rem 0;
-        }
-
-        .container {
-            max-width: 1200px;
-            margin: 0 auto;
-            padding: 0 1rem;
-        }
-
-        .grid {
-            display: grid;
-            gap: 2rem;
-        }
-
-        .grid-cols-1 { grid-template-columns: repeat(1, 1fr); }
-        .grid-cols-2 { grid-template-columns: repeat(2, 1fr); }
-        .grid-cols-3 { grid-template-columns: repeat(3, 1fr); }
-
-        @media (max-width: 768px) {
-            .grid-cols-2,
-            .grid-cols-3 {
-                grid-template-columns: 1fr;
-            }
-        }
-
-        .trust-indicators {
-            display: flex;
-            align-items: center;
-            gap: 1.5rem;
-            margin-top: 3rem;
-            padding-top: 2rem;
-            border-top: 1px solid rgba(255, 255, 255, 0.2);
-        }
-
-        .trust-indicator {
-            display: flex;
-            align-items: center;
-            gap: 0.5rem;
-            color: rgba(255, 255, 255, 0.6);
-            font-size: 0.875rem;
-        }
-
-        .check-icon {
-            width: 20px;
-            height: 20px;
-            color: #4ade80;
-        }
-    </style>
+    <!-- Main Stylesheet -->
+    <link rel="stylesheet" href="styles/main.css">
 </head>
 <body>
     <!-- Header -->
@@ -631,34 +383,29 @@
                     <form id="contactForm" class="space-y-6">
                         <div class="grid sm:grid-cols-2 gap-4">
                             <div>
-                                <label for="name" class="block text-sm font-medium text-gray-700 mb-2">Name *</label>
-                                <input type="text" id="name" name="name" required 
-                                       class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-600 focus:border-transparent">
+                                <label for="name" class="form-label">Name *</label>
+                                <input type="text" id="name" name="name" required class="form-input">
                             </div>
                             <div>
-                                <label for="email" class="block text-sm font-medium text-gray-700 mb-2">Email *</label>
-                                <input type="email" id="email" name="email" required 
-                                       class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-600 focus:border-transparent">
+                                <label for="email" class="form-label">Email *</label>
+                                <input type="email" id="email" name="email" required class="form-input">
                             </div>
                         </div>
 
                         <div class="grid sm:grid-cols-2 gap-4">
                             <div>
-                                <label for="company" class="block text-sm font-medium text-gray-700 mb-2">Company</label>
-                                <input type="text" id="company" name="company" 
-                                       class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-600 focus:border-transparent">
+                                <label for="company" class="form-label">Company</label>
+                                <input type="text" id="company" name="company" class="form-input">
                             </div>
                             <div>
-                                <label for="phone" class="block text-sm font-medium text-gray-700 mb-2">Phone</label>
-                                <input type="tel" id="phone" name="phone" 
-                                       class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-600 focus:border-transparent">
+                                <label for="phone" class="form-label">Phone</label>
+                                <input type="tel" id="phone" name="phone" class="form-input">
                             </div>
                         </div>
 
                         <div>
-                            <label for="service" class="block text-sm font-medium text-gray-700 mb-2">Service Interest</label>
-                            <select id="service" name="service" 
-                                    class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-600 focus:border-transparent">
+                            <label for="service" class="form-label">Service Interest</label>
+                            <select id="service" name="service" class="form-select">
                                 <option value="">Select a service</option>
                                 <option value="microsoft-365">Microsoft 365 Implementation</option>
                                 <option value="power-platform">Power Platform Development</option>
@@ -670,17 +417,16 @@
                         </div>
 
                         <div>
-                            <label for="message" class="block text-sm font-medium text-gray-700 mb-2">Message *</label>
-                            <textarea id="message" name="message" rows="5" required 
-                                      class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-600 focus:border-transparent"
+                            <label for="message" class="form-label">Message *</label>
+                            <textarea id="message" name="message" rows="5" required class="form-textarea"
                                       placeholder="Tell us about your project or how we can help your business..."></textarea>
                         </div>
 
                         <button type="submit" id="submitBtn"
-                                class="w-full bg-blue-600 text-white py-3 px-6 rounded-lg font-semibold hover:bg-blue-700 transition duration-300 flex items-center justify-center">
+                                class="w-full btn btn-primary">
                             <span id="submitText">Send Message</span>
                             <div id="loadingSpinner" class="hidden ml-2">
-                                <div class="animate-spin rounded-full h-4 w-4 border-2 border-white border-t-transparent"></div>
+                                <div class="loading-spinner"></div>
                             </div>
                         </button>
 
@@ -719,118 +465,7 @@
         </div>
     </footer>
 
-    <script>
-        // Mobile menu toggle
-        function toggleMobileMenu() {
-            const menu = document.querySelector('.mobile-menu');
-            menu.classList.toggle('active');
-        }
-
-        // Smooth scrolling
-        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
-            anchor.addEventListener('click', function (e) {
-                e.preventDefault();
-                const target = document.querySelector(this.getAttribute('href'));
-                if (target) {
-                    target.scrollIntoView({
-                        behavior: 'smooth',
-                        block: 'start'
-                    });
-                }
-            });
-        });
-
-        // Header scroll effect
-        window.addEventListener('scroll', function() {
-            const header = document.querySelector('.header');
-            if (window.scrollY > 50) {
-                header.style.backgroundColor = 'rgba(255, 255, 255, 0.95)';
-            } else {
-                header.style.backgroundColor = 'rgba(255, 255, 255, 0.8)';
-            }
-        });
-
-        // Animate elements on scroll
-        const observerOptions = {
-            threshold: 0.1,
-            rootMargin: '0px 0px -50px 0px'
-        };
-
-        const observer = new IntersectionObserver(function(entries) {
-            entries.forEach(entry => {
-                if (entry.isIntersecting) {
-                    entry.target.style.opacity = '1';
-                    entry.target.style.transform = 'translateY(0)';
-                }
-            });
-        }, observerOptions);
-
-        // Observe cards for animation
-        document.querySelectorAll('.card').forEach(card => {
-            card.style.opacity = '0';
-            card.style.transform = 'translateY(20px)';
-            card.style.transition = 'opacity 0.6s ease, transform 0.6s ease';
-            observer.observe(card);
-        });
-
-        // Contact Form Handler
-        document.addEventListener('DOMContentLoaded', function() {
-            const form = document.getElementById('contactForm');
-            const submitBtn = document.getElementById('submitBtn');
-            const submitText = document.getElementById('submitText');
-            const loadingSpinner = document.getElementById('loadingSpinner');
-            const formMessage = document.getElementById('formMessage');
-
-            if (form) {
-                form.addEventListener('submit', async function(e) {
-                    e.preventDefault();
-                    
-                    // Show loading state
-                    submitBtn.disabled = true;
-                    submitText.textContent = 'Sending...';
-                    loadingSpinner.classList.remove('hidden');
-                    formMessage.classList.add('hidden');
-
-                    // Collect form data
-                    const formData = new FormData(form);
-                    const data = Object.fromEntries(formData.entries());
-
-                    try {
-                        const response = await fetch('/api/contact', {
-                            method: 'POST',
-                            headers: {
-                                'Content-Type': 'application/json',
-                            },
-                            body: JSON.stringify(data)
-                        });
-
-                        const result = await response.json();
-
-                        if (response.ok) {
-                            // Success
-                            formMessage.className = 'p-4 rounded-lg bg-green-100 text-green-800 border border-green-200';
-                            formMessage.textContent = result.message || 'Thank you! Your message has been sent successfully.';
-                            form.reset();
-                        } else {
-                            // Error
-                            formMessage.className = 'p-4 rounded-lg bg-red-100 text-red-800 border border-red-200';
-                            formMessage.textContent = result.error || 'There was an error sending your message. Please try again.';
-                        }
-                    } catch (error) {
-                        // Network error
-                        formMessage.className = 'p-4 rounded-lg bg-red-100 text-red-800 border border-red-200';
-                        formMessage.textContent = 'There was a network error. Please check your connection and try again.';
-                        console.error('Contact form error:', error);
-                    } finally {
-                        // Reset button state
-                        submitBtn.disabled = false;
-                        submitText.textContent = 'Send Message';
-                        loadingSpinner.classList.add('hidden');
-                        formMessage.classList.remove('hidden');
-                    }
-                });
-            }
-        });
-    </script>
+    <!-- Main JavaScript -->
+    <script src="js/main.js"></script>
 </body>
 </html>
