@@ -20,12 +20,12 @@
                     <div>
                         <label class="block text-sm font-medium mb-2">API Endpoint:</label>
                         <input type="url" id="apiUrl" class="w-full px-3 py-2 border border-gray-300 rounded-md" 
-                               value="/api/contact">
+                               value="https://polite-smoke-056b0d100.2.azurestaticapps.net/api/contact">
                     </div>
                     <div>
                         <label class="block text-sm font-medium mb-2">Test Environment:</label>
                         <select id="environment" class="w-full px-3 py-2 border border-gray-300 rounded-md">
-                            <option value="production">Production (Current Site)</option>
+                            <option value="production">Production (polite-smoke-056b0d100)</option>
                             <option value="local">Local Development</option>
                         </select>
                     </div>
@@ -251,7 +251,7 @@
             if (environment === 'local') {
                 apiUrl.value = 'http://localhost:7071/api/contact';
             } else {
-                apiUrl.value = '/api/contact';
+                apiUrl.value = 'https://polite-smoke-056b0d100.2.azurestaticapps.net/api/contact';
             }
             updateExpectedApi();
         });

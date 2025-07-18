@@ -180,12 +180,13 @@ export class DataverseService {
         if (!service) return null;
 
         const serviceMapping: { [key: string]: number } = {
-            'microsoft-365': 1,
-            'power-platform': 2,
-            'digital-transformation': 3,
-            'training': 4,
-            'custom-solutions': 5,
-            'consultation': 6
+            'microsoft365': 463170000,      // Microsoft 365 Implementation
+            'microsoft-365': 463170000,     // Microsoft 365 Implementation (with hyphen)
+            'powerplatform': 463170001,     // Power Platform Development  
+            'power-platform': 463170001,    // Power Platform Development (with hyphen)
+            'training': 463170003,          // Training & Support
+            'migration': 463170002,         // Digital Transformation (closest to Cloud Migration)
+            'other': 463170004              // Custom Business Solutions (closest to Other)
         };
 
         return serviceMapping[service] || null;
