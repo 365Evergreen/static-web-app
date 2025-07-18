@@ -1,23 +1,61 @@
-# Azure DevOps Pipeline for Azure Static Web Apps
+# --- Old pipeline config, commented out for backup ---
+# trigger:
+#   branches:
+#     include:
+#       - main
+# 
+# pool:
+#   vmImage: 'ubuntu-latest'
+# 
+# variables:
+#   app_location: '/'
+#   api_location: 'api'
+#   output_location: ''
+# 
+# steps:
+# - task: AzureStaticWebApp@0
+#   inputs:
+#     app_location: $(app_location)
+#     api_location: $(api_location)
+#     output_location: $(output_location)
+#     azure_static_web_apps_api_token: $(deployment_token)
+#   displayName: 'Build and deploy to Azure Static Web Apps'
 
 trigger:
-  branches:
-    include:
-      - main
+- main
 
 pool:
   vmImage: 'ubuntu-latest'
 
-variables:
-  app_location: '/'
-  api_location: 'api'
-  output_location: ''
-
 steps:
+- checkout: self
+  submodules: true
+
+- task: NodeTool@0
+  inputs:
+    versionSpec: '18.x'
+  displayName: 'Install Node.js'
+
+- script: |
+    echo "Building API Functions..."
+    cd api
+    npm install
+    npm run build
+  displayName: 'Build API Functions'
+  condition: succeeded()
+
+- script: |
+    echo "Verifying file structure..."
+    ls -la
+    echo "Checking index.html exists..."
+    cat index.html | head -10
+  displayName: 'Debug File Structure'
+
 - task: AzureStaticWebApp@0
   inputs:
-    app_location: $(app_location)
-    api_location: $(api_location)
-    output_location: $(output_location)
+    app_location: "/"
+    api_location: "api"
+    output_location: ""
+    skip_app_build: true
+  env:
     azure_static_web_apps_api_token: $(deployment_token)
-  displayName: 'Build and deploy to Azure Static Web Apps'
