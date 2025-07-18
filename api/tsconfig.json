@@ -2,7 +2,7 @@
   "compilerOptions": {
     "module": "commonjs",
     "target": "es6",
-    "outDir": "dist",
+    "outDir": ".",
     "rootDir": ".",
     "sourceMap": true,
     "strict": false,
@@ -15,6 +15,6 @@
   },
   "exclude": [
     "node_modules",
-    "dist"
+    "**/*.js"
   ]
 }
