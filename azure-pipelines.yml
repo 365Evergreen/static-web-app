@@ -1,0 +1,23 @@
+# Azure DevOps Pipeline for Azure Static Web Apps
+
+trigger:
+  branches:
+    include:
+      - main
+
+pool:
+  vmImage: 'ubuntu-latest'
+
+variables:
+  app_location: '/'
+  api_location: 'api'
+  output_location: ''
+
+steps:
+- task: AzureStaticWebApp@0
+  inputs:
+    app_location: $(app_location)
+    api_location: $(api_location)
+    output_location: $(output_location)
+    azure_static_web_apps_api_token: $(deployment_token)
+  displayName: 'Build and deploy to Azure Static Web Apps'

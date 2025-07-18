@@ -1,0 +1,165 @@
+{
+  "solution": {
+    "name": "ContactSubmissionTable",
+    "displayName": "Contact Submission Table",
+    "description": "Dataverse table for 365 Evergreen contact form submissions",
+    "version": "1.0.0.0",
+    "publisher": "365Evergreen"
+  },
+  "tables": [
+    {
+      "schemaName": "msl_contactsubmission",
+      "displayName": "Contact Submissions",
+      "pluralDisplayName": "Contact Submissions",
+      "description": "Stores contact form submissions from 365 Evergreen website",
+      "ownership": "Organization",
+      "hasActivities": false,
+      "hasNotes": true,
+      "isActivity": false,
+      "primaryNameAttribute": "msl_name",
+      "columns": [
+        {
+          "schemaName": "msl_contactsubmissionid",
+          "displayName": "Contact Submission",
+          "type": "UniqueIdentifier",
+          "isPrimaryKey": true,
+          "isRequired": true,
+          "description": "Unique identifier for contact submission"
+        },
+        {
+          "schemaName": "msl_name",
+          "displayName": "Full Name",
+          "type": "String",
+          "maxLength": 100,
+          "isRequired": true,
+          "description": "Contact's full name"
+        },
+        {
+          "schemaName": "msl_email",
+          "displayName": "Email Address",
+          "type": "String",
+          "maxLength": 320,
+          "isRequired": true,
+          "description": "Contact's email address",
+          "format": "Email"
+        },
+        {
+          "schemaName": "msl_company",
+          "displayName": "Company Name",
+          "type": "String",
+          "maxLength": 100,
+          "isRequired": false,
+          "description": "Contact's company name"
+        },
+        {
+          "schemaName": "msl_phone",
+          "displayName": "Phone Number",
+          "type": "String",
+          "maxLength": 50,
+          "isRequired": false,
+          "description": "Contact's phone number",
+          "format": "Phone"
+        },
+        {
+          "schemaName": "msl_service",
+          "displayName": "Service Interest",
+          "type": "Picklist",
+          "isRequired": false,
+          "description": "Type of service interested in",
+          "options": [
+            {
+              "value": 1,
+              "label": "Microsoft 365 Implementation",
+              "externalValue": "microsoft-365"
+            },
+            {
+              "value": 2,
+              "label": "Power Platform Development",
+              "externalValue": "power-platform"
+            },
+            {
+              "value": 3,
+              "label": "Digital Transformation",
+              "externalValue": "digital-transformation"
+            },
+            {
+              "value": 4,
+              "label": "Training & Support",
+              "externalValue": "training"
+            },
+            {
+              "value": 5,
+              "label": "Custom Business Solutions",
+              "externalValue": "custom-solutions"
+            },
+            {
+              "value": 6,
+              "label": "General Consultation",
+              "externalValue": "consultation"
+            }
+          ]
+        },
+        {
+          "schemaName": "msl_message",
+          "displayName": "Message",
+          "type": "Memo",
+          "maxLength": 4000,
+          "isRequired": true,
+          "description": "Contact's message or inquiry"
+        },
+        {
+          "schemaName": "msl_submissiondate",
+          "displayName": "Submission Date",
+          "type": "DateTime",
+          "isRequired": true,
+          "description": "When the form was submitted",
+          "format": "DateAndTime",
+          "behavior": "UserLocal"
+        },
+        {
+          "schemaName": "msl_ipaddress",
+          "displayName": "IP Address",
+          "type": "String",
+          "maxLength": 45,
+          "isRequired": false,
+          "description": "Submitter's IP address for security tracking"
+        },
+        {
+          "schemaName": "msl_status",
+          "displayName": "Status",
+          "type": "Picklist",
+          "isRequired": true,
+          "description": "Processing status of the submission",
+          "defaultValue": 1,
+          "options": [
+            {
+              "value": 1,
+              "label": "New",
+              "externalValue": "new"
+            },
+            {
+              "value": 2,
+              "label": "In Review",
+              "externalValue": "in-review"
+            },
+            {
+              "value": 3,
+              "label": "Contacted",
+              "externalValue": "contacted"
+            },
+            {
+              "value": 4,
+              "label": "Completed",
+              "externalValue": "completed"
+            },
+            {
+              "value": 5,
+              "label": "Spam",
+              "externalValue": "spam"
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}
