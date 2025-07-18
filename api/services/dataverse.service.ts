@@ -95,7 +95,7 @@ export class DataverseService {
                 e365_service: this.mapServiceToOptionSet(submission.service),
                 e365_message: submission.message,
                 e365_ipaddress: submission.ipAddress || null,
-                e365_contactstatus: 463170000  // New (default status)
+                e365_contactstatus: 463170000  // New status
             };
 
             console.log('Creating contact submission in Dataverse:', {

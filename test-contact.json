@@ -1,0 +1,8 @@
+{
+  "name": "Test User",
+  "email": "test@365evergreen.com.au", 
+  "company": "365 Evergreen Test",
+  "phone": "+61 2 1234 5678",
+  "service": "other",
+  "message": "Test message for debugging contact form integration with Dataverse."
+}
