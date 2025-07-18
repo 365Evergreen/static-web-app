@@ -21,6 +21,13 @@ steps:
   displayName: 'Build API Functions'
   condition: succeeded()
 
+- script: |
+    echo "Verifying file structure..."
+    ls -la
+    echo "Checking index.html exists..."
+    cat index.html | head -10
+  displayName: 'Debug File Structure'
+
 - task: AzureStaticWebApp@0
   inputs:
     app_location: "/"
