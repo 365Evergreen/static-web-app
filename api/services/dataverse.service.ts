@@ -91,12 +91,11 @@ export class DataverseService {
                 e365_name: submission.name,
                 e365_email: submission.email,
                 e365_company: submission.company || null,
-                e365_phone: submission.phone || null,
+                e365_phonenumber: submission.phone || null,  // Fixed: was e365_phone
                 e365_service: this.mapServiceToOptionSet(submission.service),
                 e365_message: submission.message,
-                e365_submissiondate: new Date().toISOString(),
                 e365_ipaddress: submission.ipAddress || null,
-                e365_status: 1 // Default to "New" status
+                e365_contactstatus: 463170000  // New (default status)
             };
 
             console.log('Creating contact submission in Dataverse:', {
