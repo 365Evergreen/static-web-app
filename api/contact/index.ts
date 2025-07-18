@@ -177,7 +177,12 @@ function validateFormData(data: any): string | null {
 
     // Validate service selection if provided
     if (data.service) {
-        const validServices = ['microsoft-365', 'power-platform', 'digital-transformation', 'training', 'custom-solutions', 'consultation'];
+        const validServices = [
+            // Main contact form values (with hyphens)
+            'microsoft-365', 'power-platform', 'digital-transformation', 'training', 'custom-solutions', 'consultation',
+            // Debug form values (without hyphens) - for compatibility
+            'microsoft365', 'powerplatform', 'migration', 'other'
+        ];
         if (!validServices.includes(data.service)) {
             return 'Invalid service selection';
         }
