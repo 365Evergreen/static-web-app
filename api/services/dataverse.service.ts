@@ -219,7 +219,7 @@ export class DataverseService {
      */
     async testConnection(): Promise<boolean> {
         try {
-            await this.httpClient.get('/msl_contactsubmissions?$top=1');
+            await this.httpClient.get('/e365_contactsubmissions?$top=1');
             console.log('Dataverse connection test successful');
             return true;
         } catch (error) {
