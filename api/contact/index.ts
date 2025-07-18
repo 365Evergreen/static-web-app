@@ -1,4 +1,4 @@
-// Trigger redeploy
+// Trigger redeploy - contact form handler
 import { AzureFunction, Context, HttpRequest } from "@azure/functions";
 import { DataverseService, ContactSubmissionData } from "../services/dataverse.service";
 
