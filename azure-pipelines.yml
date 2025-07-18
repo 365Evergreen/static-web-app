@@ -58,4 +58,4 @@ steps:
     output_location: ""
     skip_app_build: true
   env:
-    azure_static_web_apps_api_token: $(deployment_token)
+    azure_static_web_apps_api_token: $(67a5e4545fd7d944410fe6cd0e8b03a40225a81377fec0cd73a54d431dee15fa02-5c9082a0-dfe5-430b-bf60-1b9bc125b4060002520056b0d100)
