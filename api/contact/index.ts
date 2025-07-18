@@ -104,7 +104,14 @@ const httpTrigger: AzureFunction = async function (context: Context, req: HttpRe
         };
 
     } catch (error) {
-        context.log.error('Error processing contact form submission:', error);
+        context.log.error('Error processing contact form submission:', {
+            error: error.message,
+            stack: error.stack,
+            name: error.name,
+            response: error.response?.data,
+            status: error.response?.status,
+            statusText: error.response?.statusText
+        });
 
         // Return appropriate error response
         if (error.message.includes('Authentication failed')) {
