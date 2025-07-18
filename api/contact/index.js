@@ -10,6 +10,7 @@ var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, ge
 };
 Object.defineProperty(exports, "__esModule", { value: true });
 const dataverse_service_1 = require("../services/dataverse.service");
+const dataverse_auth_service_1 = require("../services/dataverse-auth.service");
 /**
  * Azure Function to handle contact form submissions
  * Validates input and saves to Dataverse using Managed Identity
@@ -80,8 +81,19 @@ const httpTrigger = function (context, req) {
                 };
                 return;
             }
-            // Initialize Dataverse service and save submission
-            const dataverseService = new dataverse_service_1.DataverseService(dataverseUrl);
+            // Determine authentication method based on available environment variables
+            let dataverseService;
+            const hasServicePrincipalConfig = process.env.AZURE_CLIENT_ID &&
+                process.env.AZURE_CLIENT_SECRET &&
+                process.env.AZURE_TENANT_ID;
+            if (hasServicePrincipalConfig) {
+                context.log.info('Using Service Principal authentication for Dataverse');
+                dataverseService = new dataverse_auth_service_1.DataverseAuthService(dataverseUrl);
+            }
+            else {
+                context.log.info('Using Managed Identity authentication for Dataverse');
+                dataverseService = new dataverse_service_1.DataverseService(dataverseUrl);
+            }
             context.log.info('Processing contact form submission', {
                 name: submissionData.name,
                 email: submissionData.email,

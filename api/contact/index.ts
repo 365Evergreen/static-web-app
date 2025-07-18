@@ -1,6 +1,7 @@
-// Trigger redeploy - contact form handler
+// Trigger redeploy - contact form handler with enhanced authentication
 import { AzureFunction, Context, HttpRequest } from "@azure/functions";
 import { DataverseService, ContactSubmissionData } from "../services/dataverse.service";
+import { DataverseAuthService } from "../services/dataverse-auth.service";
 
 /**
  * Azure Function to handle contact form submissions
@@ -78,8 +79,19 @@ const httpTrigger: AzureFunction = async function (context: Context, req: HttpRe
             return;
         }
 
-        // Initialize Dataverse service and save submission
-        const dataverseService = new DataverseService(dataverseUrl);
+        // Determine authentication method based on available environment variables
+        let dataverseService;
+        const hasServicePrincipalConfig = process.env.AZURE_CLIENT_ID && 
+                                        process.env.AZURE_CLIENT_SECRET && 
+                                        process.env.AZURE_TENANT_ID;
+
+        if (hasServicePrincipalConfig) {
+            context.log.info('Using Service Principal authentication for Dataverse');
+            dataverseService = new DataverseAuthService(dataverseUrl);
+        } else {
+            context.log.info('Using Managed Identity authentication for Dataverse');
+            dataverseService = new DataverseService(dataverseUrl);
+        }
         
         context.log.info('Processing contact form submission', {
             name: submissionData.name,
