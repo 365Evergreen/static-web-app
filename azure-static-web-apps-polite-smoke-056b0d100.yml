@@ -14,14 +14,16 @@ steps:
   displayName: 'Install Node.js'
 
 - script: |
+    cd api
     npm install
     npm run build
-  displayName: 'Build React App'
+  displayName: 'Build API Functions'
+  condition: succeeded()
 
 - task: AzureStaticWebApp@0
   inputs:
     app_location: "/"
     api_location: "api"
-    output_location: "build"
+    output_location: ""
   env:
     azure_static_web_apps_api_token: $(deployment_token)
