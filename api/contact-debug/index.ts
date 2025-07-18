@@ -64,27 +64,66 @@ const httpTrigger: AzureFunction = async function (context: Context, req: HttpRe
             return;
         }
 
-        // Test managed identity token acquisition
+        // Test authentication based on available environment variables
         try {
-            const { DefaultAzureCredential } = require('@azure/identity');
-            context.log('DEBUG: Testing managed identity...');
-            
-            const credential = new DefaultAzureCredential();
-            const tokenResponse = await credential.getToken('https://service.powerapps.com/');
-            
-            if (tokenResponse) {
-                context.log('DEBUG: Managed identity token acquired successfully');
-                context.log('DEBUG: Token expires:', new Date(tokenResponse.expiresOnTimestamp));
+            const hasServicePrincipalConfig = process.env.AZURE_CLIENT_ID && 
+                                            process.env.AZURE_CLIENT_SECRET && 
+                                            process.env.AZURE_TENANT_ID;
+
+            if (hasServicePrincipalConfig) {
+                context.log('DEBUG: Using Service Principal authentication...');
+                context.log('DEBUG: Client ID:', process.env.AZURE_CLIENT_ID?.substring(0, 8) + '...');
+                context.log('DEBUG: Tenant ID:', process.env.AZURE_TENANT_ID?.substring(0, 8) + '...');
+                
+                // Test Service Principal authentication
+                const tokenUrl = `https://login.microsoftonline.com/${process.env.AZURE_TENANT_ID}/oauth2/v2.0/token`;
+                const scope = `${dataverseUrl}/.default`;
+
+                const params = new URLSearchParams();
+                params.append('grant_type', 'client_credentials');
+                params.append('client_id', process.env.AZURE_CLIENT_ID);
+                params.append('client_secret', process.env.AZURE_CLIENT_SECRET);
+                params.append('scope', scope);
+
+                context.log('DEBUG: Token URL:', tokenUrl);
+                context.log('DEBUG: Scope:', scope);
+
+                const axios = require('axios');
+                const response = await axios.post(tokenUrl, params, {
+                    headers: {
+                        'Content-Type': 'application/x-www-form-urlencoded'
+                    }
+                });
+
+                if (response.data.access_token) {
+                    context.log('DEBUG: Service Principal authentication successful');
+                    context.log('DEBUG: Token expires in:', response.data.expires_in, 'seconds');
+                } else {
+                    context.log.error('DEBUG: No access token received');
+                }
+
             } else {
-                context.log.error('DEBUG: Failed to get token - no response');
+                context.log('DEBUG: Using Managed Identity authentication...');
+                const { DefaultAzureCredential } = require('@azure/identity');
+                
+                const credential = new DefaultAzureCredential();
+                const tokenResponse = await credential.getToken('https://service.powerapps.com/');
+                
+                if (tokenResponse) {
+                    context.log('DEBUG: Managed identity token acquired successfully');
+                    context.log('DEBUG: Token expires:', new Date(tokenResponse.expiresOnTimestamp));
+                } else {
+                    context.log.error('DEBUG: Failed to get token - no response');
+                }
             }
             
         } catch (authError) {
-            context.log.error('DEBUG: Managed identity error:', authError);
+            context.log.error('DEBUG: Authentication error:', authError);
             context.res.status = 500;
             context.res.body = { 
-                error: 'Managed identity authentication failed',
-                details: authError.message 
+                error: 'Authentication failed',
+                details: authError.message,
+                authMethod: process.env.AZURE_CLIENT_ID ? 'Service Principal' : 'Managed Identity'
             };
             return;
         }
