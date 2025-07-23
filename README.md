@@ -2,6 +2,8 @@
 
 A modern, responsive website for 365 Evergreen, a Microsoft 365 & Power Platform consultancy based in Australia. This application showcases the company's services and expertise in helping businesses unlock productivity through Microsoft technologies.
 
+Demo site: https://polite-smoke-056b0d100.2.azurestaticapps.net/ 
+
 ## Features
 
 - **Modern Design**: Clean, professional interface built with Tailwind CSS
