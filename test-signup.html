@@ -1,0 +1,216 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Client Signup Test</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+</head>
+<body class="bg-gray-100 p-8">
+    <div class="max-w-2xl mx-auto">
+        <h1 class="text-3xl font-bold mb-8 text-center">Client Signup Test Results</h1>
+        
+        <!-- Test Form -->
+        <div class="bg-white rounded-lg shadow-md p-6 mb-8">
+            <h2 class="text-xl font-semibold mb-4">Test the Signup Form</h2>
+            <p class="mb-4">Fill out the form below to test the client signup functionality:</p>
+            
+            <form id="testForm" class="space-y-4">
+                <div class="grid grid-cols-2 gap-4">
+                    <div>
+                        <label class="block text-sm font-medium text-gray-700">First Name</label>
+                        <input type="text" id="firstName" name="firstName" value="John" class="mt-1 block w-full border border-gray-300 rounded-md px-3 py-2">
+                    </div>
+                    <div>
+                        <label class="block text-sm font-medium text-gray-700">Last Name</label>
+                        <input type="text" id="lastName" name="lastName" value="Doe" class="mt-1 block w-full border border-gray-300 rounded-md px-3 py-2">
+                    </div>
+                </div>
+                
+                <div>
+                    <label class="block text-sm font-medium text-gray-700">Email</label>
+                    <input type="email" id="email" name="email" value="john.doe@example.com" class="mt-1 block w-full border border-gray-300 rounded-md px-3 py-2">
+                </div>
+                
+                <div>
+                    <label class="block text-sm font-medium text-gray-700">Company (Optional)</label>
+                    <input type="text" id="company" name="company" value="Test Company Ltd" class="mt-1 block w-full border border-gray-300 rounded-md px-3 py-2">
+                </div>
+                
+                <div>
+                    <label class="block text-sm font-medium text-gray-700">Phone (Optional)</label>
+                    <input type="tel" id="phone" name="phone" value="+61 412 345 678" class="mt-1 block w-full border border-gray-300 rounded-md px-3 py-2">
+                </div>
+                
+                <div class="grid grid-cols-2 gap-4">
+                    <div>
+                        <label class="block text-sm font-medium text-gray-700">Password</label>
+                        <input type="password" id="password" name="password" value="TestPassword123" class="mt-1 block w-full border border-gray-300 rounded-md px-3 py-2">
+                    </div>
+                    <div>
+                        <label class="block text-sm font-medium text-gray-700">Confirm Password</label>
+                        <input type="password" id="confirmPassword" name="confirmPassword" value="TestPassword123" class="mt-1 block w-full border border-gray-300 rounded-md px-3 py-2">
+                    </div>
+                </div>
+                
+                <div class="flex items-start">
+                    <input type="checkbox" id="terms" name="terms" checked class="mt-1 mr-2">
+                    <label for="terms" class="text-sm text-gray-700">I agree to the Terms and Conditions</label>
+                </div>
+                
+                <button type="button" onclick="testClientRegistration()" class="w-full bg-blue-600 text-white py-2 px-4 rounded-md hover:bg-blue-700">
+                    Test Client Registration
+                </button>
+            </form>
+        </div>
+        
+        <!-- Test Results -->
+        <div class="bg-white rounded-lg shadow-md p-6">
+            <h2 class="text-xl font-semibold mb-4">Test Results</h2>
+            <div id="testResults" class="space-y-4">
+                <p class="text-gray-500">Click "Test Client Registration" to see results...</p>
+            </div>
+        </div>
+        
+        <!-- Signup Form Preview -->
+        <div class="mt-8 bg-white rounded-lg shadow-md p-6">
+            <h2 class="text-xl font-semibold mb-4">Actual Signup Form</h2>
+            <div class="text-center">
+                <a href="client-signup.html" target="_blank" class="inline-block bg-green-600 text-white py-2 px-6 rounded-md hover:bg-green-700">
+                    Open Signup Form
+                </a>
+                <p class="text-sm text-gray-500 mt-2">Opens the real signup form in a new tab</p>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        async function testClientRegistration() {
+            const resultsDiv = document.getElementById('testResults');
+            resultsDiv.innerHTML = '<p class="text-blue-600">Running tests...</p>';
+            
+            const formData = {
+                firstName: document.getElementById('firstName').value,
+                lastName: document.getElementById('lastName').value,
+                email: document.getElementById('email').value,
+                company: document.getElementById('company').value,
+                phone: document.getElementById('phone').value,
+                password: document.getElementById('password').value,
+                confirmPassword: document.getElementById('confirmPassword').value,
+                terms: document.getElementById('terms').checked
+            };
+            
+            const results = [];
+            
+            // Test 1: Form Validation
+            results.push('<h3 class="font-semibold text-lg">Test 1: Form Validation</h3>');
+            
+            if (!formData.firstName || !formData.lastName || !formData.email || !formData.password) {
+                results.push('<p class="text-red-600">❌ Missing required fields</p>');
+            } else {
+                results.push('<p class="text-green-600">✅ All required fields present</p>');
+            }
+            
+            if (formData.password !== formData.confirmPassword) {
+                results.push('<p class="text-red-600">❌ Passwords do not match</p>');
+            } else {
+                results.push('<p class="text-green-600">✅ Passwords match</p>');
+            }
+            
+            if (formData.password.length < 8) {
+                results.push('<p class="text-red-600">❌ Password too short (minimum 8 characters)</p>');
+            } else {
+                results.push('<p class="text-green-600">✅ Password meets length requirement</p>');
+            }
+            
+            const emailRegex = /^[^\\s@]+@[^\\s@]+\\.[^\\s@]+$/;
+            if (!emailRegex.test(formData.email)) {
+                results.push('<p class="text-red-600">❌ Invalid email format</p>');
+            } else {
+                results.push('<p class="text-green-600">✅ Valid email format</p>');
+            }
+            
+            if (!formData.terms) {
+                results.push('<p class="text-red-600">❌ Terms and conditions not accepted</p>');
+            } else {
+                results.push('<p class="text-green-600">✅ Terms and conditions accepted</p>');
+            }
+            
+            // Test 2: Client Number Generation
+            results.push('<h3 class="font-semibold text-lg mt-4">Test 2: Client Number Generation</h3>');
+            const initials = (formData.firstName.charAt(0) + formData.lastName.charAt(0)).toUpperCase();
+            const timestamp = Date.now().toString().slice(-6);
+            const clientNumber = `CL${initials}${timestamp}`;
+            results.push(`<p class="text-blue-600">📋 Generated Client Number: <strong>${clientNumber}</strong></p>`);
+            
+            // Test 3: Data Structure
+            results.push('<h3 class="font-semibold text-lg mt-4">Test 3: Registration Data Structure</h3>');
+            const registrationData = {
+                firstName: formData.firstName.trim(),
+                lastName: formData.lastName.trim(),
+                email: formData.email.trim().toLowerCase(),
+                company: formData.company?.trim() || '',
+                phone: formData.phone?.trim() || '',
+                clientNumber: clientNumber,
+                fullName: `${formData.firstName} ${formData.lastName}`
+            };
+            
+            results.push('<div class="bg-gray-100 p-3 rounded text-sm">');
+            results.push('<pre>' + JSON.stringify(registrationData, null, 2) + '</pre>');
+            results.push('</div>');
+            
+            // Test 4: API Endpoint Test (Mock)
+            results.push('<h3 class="font-semibold text-lg mt-4">Test 4: API Endpoint Test</h3>');
+            results.push('<p class="text-yellow-600">⚠️ API endpoint test requires local Azure Functions host</p>');
+            results.push('<p class="text-gray-600">Endpoint: <code>/api/client-registration</code></p>');
+            results.push('<p class="text-gray-600">Method: POST</p>');
+            
+            // Try to test the actual endpoint (will fail if not running)
+            try {
+                const response = await fetch('/api/client-registration', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json',
+                    },
+                    body: JSON.stringify(registrationData)
+                });
+                
+                if (response.ok) {
+                    const result = await response.json();
+                    results.push('<p class="text-green-600">✅ API endpoint is running and responsive</p>');
+                    results.push(`<p class="text-green-600">Response: ${JSON.stringify(result)}</p>`);
+                } else {
+                    const error = await response.text();
+                    results.push('<p class="text-red-600">❌ API returned error: ' + response.status + '</p>');
+                    results.push(`<p class="text-red-600">Error: ${error}</p>`);
+                }
+            } catch (error) {
+                results.push('<p class="text-red-600">❌ API endpoint not available (Azure Functions not running)</p>');
+                results.push('<p class="text-gray-600">To test the API: Start Azure Functions with <code>func start</code> in the /api folder</p>');
+            }
+            
+            // Test 5: Summary
+            results.push('<h3 class="font-semibold text-lg mt-4">Test 5: Overall Summary</h3>');
+            const allValidationsPassed = 
+                formData.firstName && formData.lastName && formData.email && formData.password &&
+                formData.password === formData.confirmPassword &&
+                formData.password.length >= 8 &&
+                emailRegex.test(formData.email) &&
+                formData.terms;
+                
+            if (allValidationsPassed) {
+                results.push('<p class="text-green-600 font-semibold">✅ All client-side validations passed! Form is ready for submission.</p>');
+            } else {
+                results.push('<p class="text-red-600 font-semibold">❌ Some validations failed. Please check the form data.</p>');
+            }
+            
+            resultsDiv.innerHTML = results.join('');
+        }
+        
+        // Auto-run tests on page load
+        window.addEventListener('load', () => {
+            setTimeout(testClientRegistration, 1000);
+        });
+    </script>
+</body>
+</html>
