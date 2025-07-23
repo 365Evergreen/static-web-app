@@ -227,6 +227,162 @@ export class DataverseService {
             return false;
         }
     }
+
+    /**
+     * Check if an email address already exists in the clients table
+     */
+    async checkEmailExists(email: string): Promise<boolean> {
+        try {
+            const response = await this.httpClient.get(`/e365_clients?$filter=e365_email eq '${email.toLowerCase()}'&$top=1`);
+            return response.data.value && response.data.value.length > 0;
+        } catch (error) {
+            console.error('Error checking email existence:', error);
+            throw new Error('Failed to check email availability');
+        }
+    }
+
+    /**
+     * Check if a client number already exists in the clients table
+     */
+    async checkClientNumberExists(clientNumber: string): Promise<boolean> {
+        try {
+            const response = await this.httpClient.get(`/e365_clients?$filter=e365_clientnumber eq '${clientNumber}'&$top=1`);
+            return response.data.value && response.data.value.length > 0;
+        } catch (error) {
+            console.error('Error checking client number existence:', error);
+            throw new Error('Failed to check client number availability');
+        }
+    }
+
+    /**
+     * Create a new client record in Dataverse
+     */
+    async createClientRecord(clientData: ClientData): Promise<string> {
+        try {
+            console.log('Creating client record in Dataverse...');
+            
+            const response = await this.httpClient.post('/e365_clients', clientData, {
+                headers: {
+                    'Prefer': 'return=representation'
+                }
+            });
+
+            // Extract the entity ID from the response
+            const entityIdUrl = response.headers['odata-entityid'];
+            const entityId = this.extractEntityId(entityIdUrl);
+            
+            console.log('Client record created successfully with ID:', entityId);
+            return entityId;
+        } catch (error) {
+            console.error('Error creating client record:', error);
+            
+            if (error.response?.status === 400) {
+                const errorData = error.response.data;
+                if (errorData?.error?.message?.includes('duplicate')) {
+                    throw new Error('A client with this email or client number already exists');
+                }
+                throw new Error(`Validation error: ${errorData?.error?.message || 'Invalid data provided'}`);
+            } else if (error.response?.status === 401) {
+                throw new Error('Authentication failed');
+            } else if (error.response?.status === 403) {
+                throw new Error('Access denied');
+            }
+            
+            throw new Error('Failed to create client record');
+        }
+    }
+
+    /**
+     * Authenticate a client by email and password
+     */
+    async authenticateClient(email: string, password: string): Promise<ClientAuthResult | null> {
+        try {
+            const response = await this.httpClient.get(
+                `/e365_clients?$filter=e365_email eq '${email.toLowerCase()}'&$select=e365_clientsid,e365_name,e365_firstname,e365_surname,e365_email,e365_passwordhash,e365_clientnumber,e365_status,e365_accountlocked,e365_loginattempts`
+            );
+
+            if (!response.data.value || response.data.value.length === 0) {
+                return null; // Client not found
+            }
+
+            const client = response.data.value[0];
+            
+            // Check if account is locked
+            if (client.e365_accountlocked) {
+                throw new Error('Account is locked due to too many failed login attempts');
+            }
+
+            // Check if account is active
+            if (client.e365_status !== 463170000) { // 463170000 = Active
+                throw new Error('Account is not active');
+            }
+
+            // Verify password using bcrypt
+            const bcrypt = require('bcrypt');
+            const passwordMatch = await bcrypt.compare(password, client.e365_passwordhash);
+
+            if (!passwordMatch) {
+                // Increment login attempts
+                await this.incrementLoginAttempts(client.e365_clientsid, client.e365_loginattempts);
+                return null; // Invalid password
+            }
+
+            // Reset login attempts and update last login
+            await this.resetLoginAttempts(client.e365_clientsid);
+
+            return {
+                clientId: client.e365_clientsid,
+                name: client.e365_name,
+                firstName: client.e365_firstname,
+                lastName: client.e365_surname,
+                email: client.e365_email,
+                clientNumber: client.e365_clientnumber,
+                status: client.e365_status
+            };
+        } catch (error) {
+            console.error('Error authenticating client:', error);
+            if (error.message.includes('locked') || error.message.includes('active')) {
+                throw error; // Re-throw specific errors
+            }
+            throw new Error('Authentication failed');
+        }
+    }
+
+    /**
+     * Increment login attempts for a client
+     */
+    private async incrementLoginAttempts(clientId: string, currentAttempts: number): Promise<void> {
+        try {
+            const newAttempts = (currentAttempts || 0) + 1;
+            const updateData: any = {
+                e365_loginattempts: newAttempts
+            };
+
+            // Lock account if too many attempts
+            if (newAttempts >= 5) {
+                updateData.e365_accountlocked = true;
+            }
+
+            await this.httpClient.patch(`/e365_clients(${clientId})`, updateData);
+        } catch (error) {
+            console.error('Error incrementing login attempts:', error);
+        }
+    }
+
+    /**
+     * Reset login attempts and update last login
+     */
+    private async resetLoginAttempts(clientId: string): Promise<void> {
+        try {
+            await this.httpClient.patch(`/e365_clients(${clientId})`, {
+                e365_loginattempts: 0,
+                e365_accountlocked: false,
+                e365_lastlogin: new Date().toISOString()
+            });
+        } catch (error) {
+            console.error('Error resetting login attempts:', error);
+        }
+    }
 }
 
 /**
@@ -240,4 +396,35 @@ export interface ContactSubmissionData {
     service?: string;
     message: string;
     ipAddress?: string;
+}
+
+/**
+ * Interface for client data when creating new client records
+ */
+export interface ClientData {
+    e365_name: string;
+    e365_firstname: string;
+    e365_surname: string;
+    e365_email: string;
+    e365_passwordhash: string;
+    e365_clientnumber: string;
+    e365_company?: string;
+    e365_phone?: string;
+    e365_status: number;
+    e365_loginattempts: number;
+    e365_accountlocked: boolean;
+    e365_createddate: string;
+}
+
+/**
+ * Interface for client authentication result
+ */
+export interface ClientAuthResult {
+    clientId: string;
+    name: string;
+    firstName: string;
+    lastName: string;
+    email: string;
+    clientNumber: string;
+    status: number;
 }
