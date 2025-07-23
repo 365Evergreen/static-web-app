@@ -333,7 +333,7 @@
                     // Generate client number (you may want to modify this logic)
                     registrationData.clientNumber = await this.generateClientNumber(registrationData.firstName, registrationData.lastName);
 
-                    const response = await fetch('/api/client-registration', {
+                    const response = await fetch('http://localhost:7073/api/client-registration', {
                         method: 'POST',
                         headers: {
                             'Content-Type': 'application/json',
