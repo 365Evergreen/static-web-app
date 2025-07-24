@@ -23,6 +23,10 @@
     {
       "route": "/services",
       "rewrite": "/services.html"
+    },
+    {
+      "route": "/orgchart",
+      "rewrite": "/orgchart.html"
     }
   ],
   "navigationFallback": {
