@@ -2,21 +2,28 @@
   "name": "swa-intranet",
   "version": "1.0.0",
   "private": true,
-  "description": "Frontline and office-based employee portal (Azure SWA, React, Entra ID)",
+  "homepage": ".",
+  "dependencies": {
+    "react": "^18.2.0",
+    "react-dom": "^18.2.0",
+    "react-router-dom": "^6.8.0",
+    "react-scripts": "5.0.1",
+    "web-vitals": "^3.1.0"
+  },
   "scripts": {
     "start": "react-scripts start",
     "build": "react-scripts build",
     "test": "react-scripts test",
-    "eject": "react-scripts eject"
+    "eject": "react-scripts eject",
+    "swa:build": "npm run build",
+    "swa:start": "swa start build --port 4280",
+    "swa:dev": "swa start http://localhost:3000 --run \"npm start\""
   },
-  "dependencies": {
-    "@azure/msal-browser": "^2.38.1",
-    "react": "^18.2.0",
-    "react-dom": "^18.2.0",
-    "react-router-dom": "^6.23.0"
-  },
-  "devDependencies": {
-    "react-scripts": "^5.0.1"
+  "eslintConfig": {
+    "extends": [
+      "react-app",
+      "react-app/jest"
+    ]
   },
   "browserslist": {
     "production": [
@@ -29,5 +36,8 @@
       "last 1 firefox version",
       "last 1 safari version"
     ]
+  },
+  "devDependencies": {
+    "@azure/static-web-apps-cli": "^1.1.0"
   }
 }
