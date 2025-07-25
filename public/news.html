@@ -1,0 +1,134 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Dasteen Blog</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+</head>
+<body class="bg-white text-gray-800 font-sans">
+
+  <!-- Header -->
+  <header class="flex justify-between items-center p-4 shadow-md">
+    <h1 class="text-xl font-bold text-indigo-700">Dasteen<span class="text-blue-500">.blog</span></h1>
+    <nav class="hidden md:flex space-x-6">
+      <a href="#" class="hover:text-blue-600">Home</a>
+      <a href="#" class="hover:text-blue-600">Category</a>
+      <a href="#" class="hover:text-blue-600">About Me</a>
+      <a href="#" class="hover:text-blue-600">Search</a>
+    </nav>
+    <button class="bg-indigo-600 text-white px-4 py-2 rounded hover:bg-indigo-700">☕ Buy Me A Coffee</button>
+  </header>
+
+  <!-- Hero Section -->
+  <section class="text-center py-16 px-4">
+    <h2 class="text-4xl font-bold mb-4">Hi, I’m Dasteen<br/>Front End Dev</h2>
+    <p class="max-w-xl mx-auto mb-6 text-gray-600">On this blog I share tips and tricks, frameworks, project tutorials etc. Make sure you subscribe to get the latest updates.</p>
+    <div class="flex justify-center">
+      <input type="email" placeholder="Enter your email here..." class="p-2 border rounded-l" />
+      <button class="bg-indigo-600 text-white px-4 py-2 rounded-r">Subscribe</button>
+    </div>
+  </section>
+
+  <!-- Categories -->
+  <section class="py-8 px-4">
+    <h3 class="text-xl font-semibold mb-4 text-center">Browse The Category</h3>
+    <div class="flex flex-wrap justify-center gap-4">
+      <div class="bg-white shadow px-6 py-4 rounded">CSS</div>
+      <div class="bg-white shadow px-6 py-4 rounded">Javascript</div>
+      <div class="bg-indigo-600 text-white shadow px-6 py-4 rounded">Tailwind</div>
+      <div class="bg-white shadow px-6 py-4 rounded">Vue JS</div>
+      <div class="bg-white shadow px-6 py-4 rounded">React JS</div>
+    </div>
+  </section>
+
+  <!-- Featured Articles -->
+  <section class="py-8 px-4 bg-gray-50">
+    <h3 class="text-xl font-semibold mb-4">Featured Article</h3>
+    <div class="grid md:grid-cols-4 gap-4">
+      <article class="bg-white shadow rounded p-4">Fundamental Of Javascript</article>
+      <article class="bg-white shadow rounded p-4">Grid CSS Make Your Life Easier</article>
+      <article class="bg-white shadow rounded p-4">Make Animated Light/Dark Toggle With CSS</article>
+      <article class="bg-white shadow rounded p-4">Make Tic Tac Toe Game With React JS</article>
+    </div>
+  </section>
+
+  <!-- More Categories (CSS, JS, React) -->
+  <section class="py-8 px-4">
+    <h3 class="text-xl font-semibold mb-4">CSS</h3>
+    <div class="grid md:grid-cols-4 gap-4">
+      <article class="bg-white shadow rounded p-4">Flexbox CSS: Everything</article>
+      <article class="bg-white shadow rounded p-4">Grid CSS Make Your Life Easier</article>
+      <article class="bg-white shadow rounded p-4">3 Easy Way To Make Div Center</article>
+      <article class="bg-white shadow rounded p-4">Make Animated Light</article>
+    </div>
+  </section>
+
+  <section class="py-8 px-4">
+    <h3 class="text-xl font-semibold mb-4">Javascript</h3>
+    <div class="grid md:grid-cols-4 gap-4">
+      <article class="bg-white shadow rounded p-4">Array in JS – Learn JS #3</article>
+      <article class="bg-white shadow rounded p-4">Fundamental Of Javascript</article>
+      <article class="bg-white shadow rounded p-4">7 Projects With JS</article>
+      <article class="bg-white shadow rounded p-4">Simple Calculator With JS</article>
+    </div>
+  </section>
+
+  <section class="py-8 px-4">
+    <h3 class="text-xl font-semibold mb-4">React JS</h3>
+    <div class="grid md:grid-cols-4 gap-4">
+      <article class="bg-white shadow rounded p-4">First Month Learning React</article>
+      <article class="bg-white shadow rounded p-4">Build Markdown Editor</article>
+      <article class="bg-white shadow rounded p-4">Getting Started With React</article>
+      <article class="bg-white shadow rounded p-4">Tic Tac Toe Game</article>
+    </div>
+    <div class="mt-6 text-center">
+      <button class="bg-indigo-600 text-white px-6 py-2 rounded hover:bg-indigo-700">More Article</button>
+    </div>
+  </section>
+
+  <!-- Newsletter Section -->
+  <section class="bg-gray-100 py-12 text-center px-4">
+    <h3 class="text-2xl font-semibold mb-4">Subscribe For The Lastest Updates</h3>
+    <p class="mb-4 text-gray-600">Subscribe to newsletter and never miss the new post every week.</p>
+    <div class="flex justify-center">
+      <input type="email" placeholder="Enter your email here..." class="p-2 border rounded-l" />
+      <button class="bg-indigo-600 text-white px-4 py-2 rounded-r">Subscribe</button>
+    </div>
+  </section>
+
+  <!-- Footer -->
+  <footer class="bg-white py-8 px-4 text-sm text-gray-500 border-t">
+    <div class="grid md:grid-cols-4 gap-8 max-w-6xl mx-auto">
+      <div>
+        <h4 class="font-bold text-indigo-700 mb-2">Dasteen<span class="text-blue-500">.blog</span></h4>
+        <p>Digital Solution by Dasteen</p>
+      </div>
+      <div>
+        <h4 class="font-semibold mb-2">Category</h4>
+        <ul>
+          <li>CSS</li>
+          <li>Javascript</li>
+          <li>Tailwind</li>
+          <li>React JS</li>
+        </ul>
+      </div>
+      <div>
+        <h4 class="font-semibold mb-2">About Me</h4>
+        <ul>
+          <li>About Me</li>
+          <li>Projects</li>
+          <li>Achievement</li>
+        </ul>
+      </div>
+      <div>
+        <h4 class="font-semibold mb-2">Get In Touch</h4>
+        <p>+62-8000-XXX-XX</p>
+        <p>dasteen@mail.com</p>
+      </div>
+    </div>
+    <p class="text-center mt-8">&copy; 2025 Dasteen.blog</p>
+  </footer>
+
+</body>
+</html>
