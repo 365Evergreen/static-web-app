@@ -8,12 +8,16 @@ import axios, { AxiosInstance } from 'axios';
 export class DataverseService {
     private httpClient: AxiosInstance;
     private baseUrl: string;
+    private environmentUrl: string;
     private accessToken: string | null = null;
     private tokenExpiry: Date | null = null;
+    private clientsTableName: string | null = null;
 
     constructor(environmentUrl: string) {
+        // Store environment URL for token requests
+        this.environmentUrl = environmentUrl.replace(/\/$/, '');
         // Remove trailing slash and construct API base URL
-        this.baseUrl = `${environmentUrl.replace(/\/$/, '')}/api/data/v9.2`;
+        this.baseUrl = `${this.environmentUrl}/api/data/v9.2`;
         
         this.httpClient = axios.create({
             baseURL: this.baseUrl,
@@ -60,7 +64,7 @@ export class DataverseService {
 
         try {
             const credential = new DefaultAzureCredential();
-            const tokenResponse = await credential.getToken('https://service.powerapps.com/');
+            const tokenResponse = await credential.getToken(`${this.environmentUrl}/.default`);
             
             if (!tokenResponse) {
                 throw new Error('Failed to obtain access token');
@@ -229,11 +233,50 @@ export class DataverseService {
     }
 
     /**
+     * Find the correct clients table name
+     */
+    private async findClientsTableName(): Promise<string> {
+        if (this.clientsTableName) {
+            return this.clientsTableName;
+        }
+
+        // First try to list all entity sets to see what's available
+        try {
+            console.log('Listing all available entity sets...');
+            const metadataResponse = await this.httpClient.get('/$metadata');
+            console.log('Metadata response received (first 500 chars):', metadataResponse.data.substring(0, 500));
+        } catch (metadataError) {
+            console.log('Could not fetch metadata:', metadataError.message);
+        }
+
+        const possibleTableNames = ['e365_clients', 'cr48b_e365clients', 'cr48b_e365_clients', 'cr48b_clients'];
+        
+        for (const tableName of possibleTableNames) {
+            try {
+                console.log(`Trying table name: ${tableName}`);
+                await this.httpClient.get(`/${tableName}?$top=1`);
+                console.log(`Found table: ${tableName}`);
+                this.clientsTableName = tableName;
+                return tableName;
+            } catch (tableError: any) {
+                console.log(`Table ${tableName} not found, trying next...`);
+                if (tableError.response?.status !== 404) {
+                    // If it's not a 404, it might be a real error
+                    throw tableError;
+                }
+            }
+        }
+        
+        throw new Error('Could not find the clients table with any expected name. The table may need to be created in Dataverse first.');
+    }
+
+    /**
      * Check if an email address already exists in the clients table
      */
     async checkEmailExists(email: string): Promise<boolean> {
         try {
-            const response = await this.httpClient.get(`/e365_clients?$filter=e365_email eq '${email.toLowerCase()}'&$top=1`);
+            const tableName = await this.findClientsTableName();
+            const response = await this.httpClient.get(`/${tableName}?$filter=e365_email eq '${email.toLowerCase()}'&$top=1`);
             return response.data.value && response.data.value.length > 0;
         } catch (error) {
             console.error('Error checking email existence:', error);
@@ -246,7 +289,8 @@ export class DataverseService {
      */
     async checkClientNumberExists(clientNumber: string): Promise<boolean> {
         try {
-            const response = await this.httpClient.get(`/e365_clients?$filter=e365_clientnumber eq '${clientNumber}'&$top=1`);
+            const tableName = await this.findClientsTableName();
+            const response = await this.httpClient.get(`/${tableName}?$filter=e365_clientnumber eq '${clientNumber}'&$top=1`);
             return response.data.value && response.data.value.length > 0;
         } catch (error) {
             console.error('Error checking client number existence:', error);
@@ -261,7 +305,8 @@ export class DataverseService {
         try {
             console.log('Creating client record in Dataverse...');
             
-            const response = await this.httpClient.post('/e365_clients', clientData, {
+            const tableName = await this.findClientsTableName();
+            const response = await this.httpClient.post(`/${tableName}`, clientData, {
                 headers: {
                     'Prefer': 'return=representation'
                 }
